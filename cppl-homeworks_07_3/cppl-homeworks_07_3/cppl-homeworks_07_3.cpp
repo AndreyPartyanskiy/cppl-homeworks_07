@@ -26,22 +26,19 @@ public:
         if ((logic_ptr + 1) < actual_ptr)
         {
             my_vector_[logic_ptr] = in_data;
-            ++logic_ptr;
+            logic_ptr++;
         }
         else
         {
-            int* temp = new T[actual_ptr * 2]{};
+            
+            int*temp = new T[actual_ptr * 2]{};
+           
             for (int y = 0; y < actual_ptr; y++)
             {
-                temp[y] = my_vector_[y];
+                temp[y]=my_vector_[y];
             }
             delete[] my_vector_;
-            my_vector_ = new int [actual_ptr * 2] {};
-            for (int y = 0; y < actual_ptr; y++)
-            {
-                my_vector_[y] = temp[y];
-            }
-            delete[]temp;
+            my_vector_ = temp;
             actual_ptr = actual_ptr * 2;
             my_vector_[logic_ptr] = in_data;
             logic_ptr++;
@@ -63,16 +60,8 @@ public:
     
     T at(int index)
     {
-        try 
-        {
-            if (index > logic_ptr) throw Error_range();
-        }
-        catch (const Error_range)
-        {
-            std::cerr << "Range is not correct" << "\n";
-            return 0;
-        }
-            return  my_vector_[index];
+        if (index > logic_ptr) throw "Range of out!";        
+        return  my_vector_[index];
     }
     
     ~my_vector()
@@ -84,21 +73,31 @@ public:
 
 int main()
 {
-    auto test = my_vector <int>();
-    test.push_back(5);
-    test.push_back(5);
-    test.push_back(5);
-    test.push_back(5);
-    test.push_back(5);
-    test.push_back(5);
-    test.push_back(5);
-    test.push_back(5);
-    test.push_back(5);
-    test.push_back(5);
-    test.print();
+    try
+    {
 
-    std::cout << test.size() << std::endl;
-    std::cout << test.capacity() << std::endl;
-    std::cout << test.at(13) << std::endl;   
+
+        auto test = my_vector <int>();
+        test.push_back(5);
+        test.push_back(5);
+        test.push_back(5);
+        test.push_back(5);
+        test.push_back(5);
+        test.push_back(5);
+        test.push_back(5);
+        test.push_back(5);
+        test.push_back(5);
+        test.push_back(5);
+        test.print();
+
+        std::cout << test.size() << std::endl;
+        std::cout << test.capacity() << std::endl;
+        std::cout << test.at(4) << std::endl;
+    }
+    catch (const char* error_massage)
+        {
+            std::cout << error_massage << "\n";
+            return 0;
+        }
     return 0;
 }

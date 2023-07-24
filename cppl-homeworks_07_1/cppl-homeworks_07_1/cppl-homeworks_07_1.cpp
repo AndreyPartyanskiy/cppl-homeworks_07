@@ -19,11 +19,7 @@ int main()
     std::string in_str= "Hello world!!";
     std::cout << "[IN]: " << in_str << std::endl;
 
-    for (char abc : in_str)
-    {
-        if (map.count(abc)) map[abc]++;
-        else map[abc] = 1;         
-    }
+    for (char abc : in_str) map[abc]++;
 
     std::vector <PAIR> vec;
     PAIR temp;
